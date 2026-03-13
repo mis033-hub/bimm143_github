@@ -1,0 +1,46 @@
+---
+title: "Class 12 - Genome Informatics"
+author: "Mitchell Sullivan (PID: A18595276)"
+format: pdf
+toc: True
+---
+
+## Proportion of G/G in the population
+
+```{r}
+mxl <- read.csv("373531-SampleGenotypes-Homo_sapiens_Variation_Sample_rs8067378.csv")
+head(mxl)
+```
+
+```{r}
+100 * table(mxl$Genotype..forward.strand.) / nrow(mxl)
+```
+
+## Section 4
+
+How many samples do we have?
+
+```{r}
+expr <- read.table("rs8067378_ENSG00000172057.6.txt")
+head(expr)
+```
+
+```{r}
+nrow(expr)
+```
+
+```{r}
+table(expr$geno)
+```
+
+```{r}
+library(ggplot2)
+```
+
+Let's try a boxplot:
+
+```{r}
+ggplot(expr, aes(geno, exp, fill = geno)) +
+  geom_boxplot(notch = T) +
+  theme_minimal()
+```

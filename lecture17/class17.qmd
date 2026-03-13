@@ -1,0 +1,86 @@
+---
+title: "Class 17"
+author: "Mitchell Sullivan (PID: A18595276)"
+format: pdf
+toc: True
+---
+
+## Data Import
+
+```{r}
+library(tximport)
+
+folders <- dir(pattern = "SRR21568*")
+samples <- sub("_quant", "", folders)
+files <- file.path(folders, "abundance.h5" )
+names(files) <- samples
+
+txi.kallisto <- tximport(files, type = "kallisto", txOut = T)
+```
+
+```{r}
+head(txi.kallisto$counts)
+```
+
+```{r}
+colSums(txi.kallisto$counts)
+```
+
+```{r}
+sum(rowSums(txi.kallisto$counts) > 0)
+```
+
+```{r}
+to.keep <- rowSums(txi.kallisto$counts) > 0
+kset.nonzero <- txi.kallisto$counts[to.keep, ]
+```
+
+```{r}
+keep2 <- apply(kset.nonzero, 1, sd) > 0
+x <- kset.nonzero[keep2, ]
+```
+
+## PCA
+
+```{r}
+pca <- prcomp(t(x), scale = T)
+
+summary(pca)
+```
+
+```{r}
+plot(pca$x[, 1], pca$x[, 2],
+     col = c("blue", "blue", "red", "red"),
+     xlab = "PC1", ylab = "PC2", pch = 16)
+```
+
+```{r}
+library(ggplot2)
+library(ggrepel)
+
+mycols <- c("blue", "blue", "red", "red")
+
+
+ggplot(pca$x, aes(PC1, PC2, label = rownames(pca$x))) +
+  geom_point(col = mycols) +
+  geom_text_repel(col = mycols) +
+  labs(title = "PC1 vs PC2", x = "PC1", y = "PC2") +
+  theme_minimal()
+```
+
+```{r}
+ggplot(pca$x, aes(PC1, PC3, label = rownames(pca$x))) +
+  geom_point(col = mycols) +
+  geom_text_repel(col = mycols) +
+  labs(title = "PC1 vs PC3", x = "PC1", y = "PC3") +
+  theme_minimal()
+```
+
+```{r}
+ggplot(pca$x, aes(PC2, PC3, label = rownames(pca$x))) +
+  geom_point(col = mycols) +
+  geom_text_repel(col = mycols) +
+  labs(title = "PC2 vs PC3", x = "PC2", y = "PC3") +
+  theme_minimal()
+```
+
