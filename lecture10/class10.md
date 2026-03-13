@@ -188,8 +188,8 @@ pdbseq(hiv)
 ### Quick viewing of PDBs
 
 ``` r
-# library(bio3dview)
-# library(NGLVieweR)
+ library(bio3dview)
+ library(NGLVieweR)
 # 
 # view.pdb(hiv, backgroundColor = "pink") |>
 #   setSpin()
@@ -220,7 +220,7 @@ m <- nma(adk)
 ```
 
      Building Hessian...        Done in 0.012 seconds.
-     Diagonalizing Hessian...   Done in 0.258 seconds.
+     Diagonalizing Hessian...   Done in 0.256 seconds.
 
 ``` r
 plot(m)
@@ -231,7 +231,7 @@ plot(m)
 Write out our results as a wee trajectory movie:
 
 ``` r
-#mktrj(m, file = "adk_m7.pdb")
+mktrj(m, file = "adk_m7.pdb")
 ```
 
 ``` r
@@ -261,32 +261,126 @@ aa <- get.seq(id)
 Have a wee peak:
 
 ``` r
-#blast <- readRDS("blast.rds")
+blast <- readRDS("blast.rds")
 
-#head(blast$hit.tbl)
+head(blast$hit.tbl)
 ```
+
+            queryid subjectids identity alignmentlength mismatches gapopens q.start
+    1 Query_8320189     1AKE_A  100.000             214          0        0       1
+    2 Query_8320189     8BQF_A   99.533             214          1        0       1
+    3 Query_8320189     4X8M_A   99.533             214          1        0       1
+    4 Query_8320189     6S36_A   99.533             214          1        0       1
+    5 Query_8320189     9R6U_A   99.533             214          1        0       1
+    6 Query_8320189     9R71_A   99.533             214          1        0       1
+      q.end s.start s.end    evalue bitscore positives mlog.evalue pdb.id    acc
+    1   214       1   214 1.79e-156      432    100.00    358.6211 1AKE_A 1AKE_A
+    2   214      21   234 2.93e-156      433    100.00    358.1283 8BQF_A 8BQF_A
+    3   214       1   214 3.21e-156      432    100.00    358.0370 4X8M_A 4X8M_A
+    4   214       1   214 4.71e-156      432    100.00    357.6536 6S36_A 6S36_A
+    5   214       1   214 1.05e-155      431     99.53    356.8519 9R6U_A 9R6U_A
+    6   214       1   214 1.24e-155      431     99.53    356.6856 9R71_A 9R71_A
 
 ``` r
-#hits <- plot(blast)
+hits <- plot(blast)
 ```
+
+      * Possible cutoff values:    260 3 
+                Yielding Nhits:    20 96 
+
+      * Chosen cutoff value of:    260 
+                Yielding Nhits:    20 
+
+![](class10_files/figure-commonmark/unnamed-chunk-18-1.png)
 
 Peak at our “top hits”:
 
 ``` r
-#head(hits$pdb.id)
+head(hits$pdb.id)
 ```
+
+    [1] "1AKE_A" "8BQF_A" "4X8M_A" "6S36_A" "9R6U_A" "9R71_A"
 
 Now we can download these “top hits”. These will all be ADK structures
 in the PDB database.
 
 ``` r
-#hits <- NULL
-#hits$pdb.id <- c('1AKE_A','6S36_A','6RZE_A','3HPR_A','1E4V_A','5EJE_A','1E4Y_A','3X2S_A','6HAP_A','6HAM_A','4K46_A','3GMT_A','4PZL_A')
+hits <- NULL
+hits$pdb.id <- c('1AKE_A','6S36_A','6RZE_A','3HPR_A','1E4V_A','5EJE_A','1E4Y_A','3X2S_A','6HAP_A','6HAM_A','4K46_A','3GMT_A','4PZL_A')
 ```
 
 ``` r
-#files <- get.pdb(hits$pdb.id, path = "pdbs", split = T, gzip = T)
+files <- get.pdb(hits$pdb.id, path = "pdbs", split = T, gzip = T)
 ```
+
+    Warning in get.pdb(hits$pdb.id, path = "pdbs", split = T, gzip = T):
+    pdbs/1AKE.pdb.gz exists. Skipping download
+
+    Warning in get.pdb(hits$pdb.id, path = "pdbs", split = T, gzip = T):
+    pdbs/6S36.pdb.gz exists. Skipping download
+
+    Warning in get.pdb(hits$pdb.id, path = "pdbs", split = T, gzip = T):
+    pdbs/6RZE.pdb.gz exists. Skipping download
+
+    Warning in get.pdb(hits$pdb.id, path = "pdbs", split = T, gzip = T):
+    pdbs/3HPR.pdb.gz exists. Skipping download
+
+    Warning in get.pdb(hits$pdb.id, path = "pdbs", split = T, gzip = T):
+    pdbs/1E4V.pdb.gz exists. Skipping download
+
+    Warning in get.pdb(hits$pdb.id, path = "pdbs", split = T, gzip = T):
+    pdbs/5EJE.pdb.gz exists. Skipping download
+
+    Warning in get.pdb(hits$pdb.id, path = "pdbs", split = T, gzip = T):
+    pdbs/1E4Y.pdb.gz exists. Skipping download
+
+    Warning in get.pdb(hits$pdb.id, path = "pdbs", split = T, gzip = T):
+    pdbs/3X2S.pdb.gz exists. Skipping download
+
+    Warning in get.pdb(hits$pdb.id, path = "pdbs", split = T, gzip = T):
+    pdbs/6HAP.pdb.gz exists. Skipping download
+
+    Warning in get.pdb(hits$pdb.id, path = "pdbs", split = T, gzip = T):
+    pdbs/6HAM.pdb.gz exists. Skipping download
+
+    Warning in get.pdb(hits$pdb.id, path = "pdbs", split = T, gzip = T):
+    pdbs/4K46.pdb.gz exists. Skipping download
+
+    Warning in get.pdb(hits$pdb.id, path = "pdbs", split = T, gzip = T):
+    pdbs/3GMT.pdb.gz exists. Skipping download
+
+    Warning in get.pdb(hits$pdb.id, path = "pdbs", split = T, gzip = T):
+    pdbs/4PZL.pdb.gz exists. Skipping download
+
+
+      |                                                                            
+      |                                                                      |   0%
+      |                                                                            
+      |=====                                                                 |   8%
+      |                                                                            
+      |===========                                                           |  15%
+      |                                                                            
+      |================                                                      |  23%
+      |                                                                            
+      |======================                                                |  31%
+      |                                                                            
+      |===========================                                           |  38%
+      |                                                                            
+      |================================                                      |  46%
+      |                                                                            
+      |======================================                                |  54%
+      |                                                                            
+      |===========================================                           |  62%
+      |                                                                            
+      |================================================                      |  69%
+      |                                                                            
+      |======================================================                |  77%
+      |                                                                            
+      |===========================================================           |  85%
+      |                                                                            
+      |=================================================================     |  92%
+      |                                                                            
+      |======================================================================| 100%
 
 We need one package from BioConductor. To set this up, we need to first
 install a package called **“BiocManager”** from CRAN
@@ -295,20 +389,74 @@ Now we can use the `install()` function from this package like this:
 `BiocManager::install("msa")`
 
 ``` r
-#pdbs <- pdbaln(files, fit = T, exefile = "msa")
+pdbs <- pdbaln(files, fit = T, exefile = "msa")
 ```
+
+    Reading PDB files:
+    pdbs/split_chain/1AKE_A.pdb
+    pdbs/split_chain/6S36_A.pdb
+    pdbs/split_chain/6RZE_A.pdb
+    pdbs/split_chain/3HPR_A.pdb
+    pdbs/split_chain/1E4V_A.pdb
+    pdbs/split_chain/5EJE_A.pdb
+    pdbs/split_chain/1E4Y_A.pdb
+    pdbs/split_chain/3X2S_A.pdb
+    pdbs/split_chain/6HAP_A.pdb
+    pdbs/split_chain/6HAM_A.pdb
+    pdbs/split_chain/4K46_A.pdb
+    pdbs/split_chain/3GMT_A.pdb
+    pdbs/split_chain/4PZL_A.pdb
+       PDB has ALT records, taking A only, rm.alt=TRUE
+    .   PDB has ALT records, taking A only, rm.alt=TRUE
+    .   PDB has ALT records, taking A only, rm.alt=TRUE
+    .   PDB has ALT records, taking A only, rm.alt=TRUE
+    ..   PDB has ALT records, taking A only, rm.alt=TRUE
+    ....   PDB has ALT records, taking A only, rm.alt=TRUE
+    .   PDB has ALT records, taking A only, rm.alt=TRUE
+    ...
+
+    Extracting sequences
+
+    pdb/seq: 1   name: pdbs/split_chain/1AKE_A.pdb 
+       PDB has ALT records, taking A only, rm.alt=TRUE
+    pdb/seq: 2   name: pdbs/split_chain/6S36_A.pdb 
+       PDB has ALT records, taking A only, rm.alt=TRUE
+    pdb/seq: 3   name: pdbs/split_chain/6RZE_A.pdb 
+       PDB has ALT records, taking A only, rm.alt=TRUE
+    pdb/seq: 4   name: pdbs/split_chain/3HPR_A.pdb 
+       PDB has ALT records, taking A only, rm.alt=TRUE
+    pdb/seq: 5   name: pdbs/split_chain/1E4V_A.pdb 
+    pdb/seq: 6   name: pdbs/split_chain/5EJE_A.pdb 
+       PDB has ALT records, taking A only, rm.alt=TRUE
+    pdb/seq: 7   name: pdbs/split_chain/1E4Y_A.pdb 
+    pdb/seq: 8   name: pdbs/split_chain/3X2S_A.pdb 
+    pdb/seq: 9   name: pdbs/split_chain/6HAP_A.pdb 
+    pdb/seq: 10   name: pdbs/split_chain/6HAM_A.pdb 
+       PDB has ALT records, taking A only, rm.alt=TRUE
+    pdb/seq: 11   name: pdbs/split_chain/4K46_A.pdb 
+       PDB has ALT records, taking A only, rm.alt=TRUE
+    pdb/seq: 12   name: pdbs/split_chain/3GMT_A.pdb 
+    pdb/seq: 13   name: pdbs/split_chain/4PZL_A.pdb 
 
 ``` r
-#ids <- basename.pdb(pdbs$id)
+ids <- basename.pdb(pdbs$id)
 
-#anno <- pdb.annotate(ids)
-#unique(anno$source)
+anno <- pdb.annotate(ids)
+unique(anno$source)
 ```
+
+    [1] "Escherichia coli"                                
+    [2] "Escherichia coli K-12"                           
+    [3] "Escherichia coli O139:H28 str. E24377A"          
+    [4] "Escherichia coli str. K-12 substr. MDS42"        
+    [5] "Photobacterium profundum"                        
+    [6] "Burkholderia pseudomallei 1710b"                 
+    [7] "Francisella tularensis subsp. tularensis SCHU S4"
 
 Let’s have a wee peak at our structures after “fitting”, or superposing
 
 ``` r
-#library(bio3dview)
+library(bio3dview)
 ```
 
 ``` r
@@ -318,53 +466,114 @@ Let’s have a wee peak at our structures after “fitting”, or superposing
 We can run functions like `rmsd()`, `rmsf()`, and the best, `pca()`
 
 ``` r
-#pc.xray <- pca(pdbs)
+pc.xray <- pca(pdbs)
 
-#plot(pc.xray)
+plot(pc.xray)
 ```
+
+![](class10_files/figure-commonmark/unnamed-chunk-26-1.png)
 
 ``` r
-#plot(pc.xray, 1:2)
+plot(pc.xray, 1:2)
 ```
+
+![](class10_files/figure-commonmark/unnamed-chunk-27-1.png)
 
 ``` r
 # Calculate RMSD
-#rd <- rmsd(pdbs)
-
-# Structure-based clustering
-#hc.rd <- hclust(dist(rd))
-#grps.rd <- cutree(hc.rd, k=3)
-
-#plot(pc.xray, 1:2, col="grey50", bg=grps.rd, pch=21, cex=1)
+rd <- rmsd(pdbs)
 ```
+
+    Warning in rmsd(pdbs): No indices provided, using the 204 non NA positions
+
+``` r
+# Structure-based clustering
+hc.rd <- hclust(dist(rd))
+grps.rd <- cutree(hc.rd, k=3)
+
+plot(pc.xray, 1:2, col="grey50", bg=grps.rd, pch=21, cex=1)
+```
+
+![](class10_files/figure-commonmark/unnamed-chunk-28-1.png)
 
 Finally, let’s make a wee movie of the major “motion” or structural
 difference in the dataset - we call this a “trajectory”
 
 ``` r
-#mktrj(pc.xray, file = "results.pdb")
+mktrj(pc.xray, file = "results.pdb")
 ```
 
 ``` r
-#library(ggplot2)
-#library(ggrepel)
-
-#df <- data.frame(PC1=pc.xray$z[,1], 
-#                 PC2=pc.xray$z[,2], 
-#                 col=as.factor(grps.rd),
-#                 ids=ids)
-
-#p <- ggplot(df) + 
-#  aes(PC1, PC2, col=col, label=ids) +
-#  geom_point(size=2) +
-#  geom_text_repel(max.overlaps = 20) +
-#  theme_minimal() +
-#  theme(legend.position = "none")
-#p
+library(ggplot2)
 ```
+
+    Warning: package 'ggplot2' was built under R version 4.4.3
 
 ``` r
-#modes <- nma(pdbs)
+library(ggrepel)
 
-#plot(modes, pdbs, col=grps.rd)
+df <- data.frame(PC1=pc.xray$z[,1], 
+                 PC2=pc.xray$z[,2], 
+                 col=as.factor(grps.rd),
+                 ids=ids)
+
+p <- ggplot(df) + 
+  aes(PC1, PC2, col=col, label=ids) +
+  geom_point(size=2) +  geom_text_repel(max.overlaps = 20) +
+  theme_minimal() +
+  theme(legend.position = "none")
+p
 ```
+
+![](class10_files/figure-commonmark/unnamed-chunk-30-1.png)
+
+``` r
+modes <- nma(pdbs)
+```
+
+
+    Details of Scheduled Calculation:
+      ... 13 input structures 
+      ... storing 606 eigenvectors for each structure 
+      ... dimension of x$U.subspace: ( 612x606x13 )
+      ... coordinate superposition prior to NM calculation 
+      ... aligned eigenvectors (gap containing positions removed)  
+      ... estimated memory usage of final 'eNMA' object: 36.9 Mb 
+
+
+      |                                                                            
+      |                                                                      |   0%
+      |                                                                            
+      |=====                                                                 |   8%
+      |                                                                            
+      |===========                                                           |  15%
+      |                                                                            
+      |================                                                      |  23%
+      |                                                                            
+      |======================                                                |  31%
+      |                                                                            
+      |===========================                                           |  38%
+      |                                                                            
+      |================================                                      |  46%
+      |                                                                            
+      |======================================                                |  54%
+      |                                                                            
+      |===========================================                           |  62%
+      |                                                                            
+      |================================================                      |  69%
+      |                                                                            
+      |======================================================                |  77%
+      |                                                                            
+      |===========================================================           |  85%
+      |                                                                            
+      |=================================================================     |  92%
+      |                                                                            
+      |======================================================================| 100%
+
+``` r
+plot(modes, pdbs, col=grps.rd)
+```
+
+    Extracting SSE from pdbs$sse attribute
+
+![](class10_files/figure-commonmark/unnamed-chunk-31-1.png)
