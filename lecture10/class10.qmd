@@ -1,7 +1,7 @@
 ---
 title: "Class10 - Structural Bioinformatics"
 author: "Mitchell Sullivan (PID: A18595276)"
-format: html
+format: pdf
 toc: True
 ---
 
@@ -119,7 +119,7 @@ plot(m)
 Write out our results as a wee trajectory movie:
 
 ```{r}
-mktrj(m, file = "adk_m7.pdb")
+#mktrj(m, file = "adk_m7.pdb")
 ```
 
 ```{r}
@@ -138,23 +138,26 @@ aa <- get.seq(id)
 ```
 
 ```{r}
-blast <- blast.pdb(aa)
+#blast <- blast.pdb(aa)
+#saveRDS(blast, file = "blast.rds")
 ```
 
 Have a wee peak:
 
 ```{r}
-head(blast$hit.tbl)
+#blast <- readRDS("blast.rds")
+
+#head(blast$hit.tbl)
 ```
 
 ```{r}
-hits <- plot(blast)
+#hits <- plot(blast)
 ```
 
 Peak at our "top hits":
 
 ```{r}
-head(hits$pdb.id)
+#head(hits$pdb.id)
 ```
 
 Now we can download these "top hits". These will all be ADK structures in the PDB database.
@@ -165,7 +168,7 @@ Now we can download these "top hits". These will all be ADK structures in the PD
 ```
 
 ```{r}
-files <- get.pdb(hits$pdb.id, path = "pdbs", split = T, gzip = T)
+#files <- get.pdb(hits$pdb.id, path = "pdbs", split = T, gzip = T)
 ```
 
 We need one package from BioConductor. To set this up, we need to first install a package called **"BiocManager"** from CRAN
@@ -174,76 +177,76 @@ Now we can use the `install()` function from this package like this:
 `BiocManager::install("msa")`
 
 ```{r}
-pdbs <- pdbaln(files, fit = T, exefile = "msa")
+#pdbs <- pdbaln(files, fit = T, exefile = "msa")
 ```
 
 ```{r}
-ids <- basename.pdb(pdbs$id)
+#ids <- basename.pdb(pdbs$id)
 
-anno <- pdb.annotate(ids)
-unique(anno$source)
+#anno <- pdb.annotate(ids)
+#unique(anno$source)
 ```
 
 Let's have a wee peak at our structures after "fitting", or superposing
 
 ```{r}
-library(bio3dview)
+#library(bio3dview)
 ```
 
 ```{r}
-view.pdbs(pdbs, colorScheme = "residue")
+#view.pdbs(pdbs, colorScheme = "residue")
 ```
 
 We can run functions like `rmsd()`, `rmsf()`, and the best, `pca()`
 
 ```{r}
-pc.xray <- pca(pdbs)
+#pc.xray <- pca(pdbs)
 
-plot(pc.xray)
+#plot(pc.xray)
 ```
 
 ```{r}
-plot(pc.xray, 1:2)
+#plot(pc.xray, 1:2)
 ```
 
 ```{r}
 # Calculate RMSD
-rd <- rmsd(pdbs)
+#rd <- rmsd(pdbs)
 
 # Structure-based clustering
-hc.rd <- hclust(dist(rd))
-grps.rd <- cutree(hc.rd, k=3)
+#hc.rd <- hclust(dist(rd))
+#grps.rd <- cutree(hc.rd, k=3)
 
-plot(pc.xray, 1:2, col="grey50", bg=grps.rd, pch=21, cex=1)
+#plot(pc.xray, 1:2, col="grey50", bg=grps.rd, pch=21, cex=1)
 ```
 
 Finally, let's make a wee movie of the major "motion" or structural difference in the dataset - we call this a "trajectory"
 
 ```{r}
-mktrj(pc.xray, file = "results.pdb")
+#mktrj(pc.xray, file = "results.pdb")
 ```
 
 ```{r}
-library(ggplot2)
-library(ggrepel)
+#library(ggplot2)
+#library(ggrepel)
 
-df <- data.frame(PC1=pc.xray$z[,1], 
-                 PC2=pc.xray$z[,2], 
-                 col=as.factor(grps.rd),
-                 ids=ids)
+#df <- data.frame(PC1=pc.xray$z[,1], 
+#                 PC2=pc.xray$z[,2], 
+#                 col=as.factor(grps.rd),
+#                 ids=ids)
 
-p <- ggplot(df) + 
-  aes(PC1, PC2, col=col, label=ids) +
-  geom_point(size=2) +
-  geom_text_repel(max.overlaps = 20) +
-  theme_minimal() +
-  theme(legend.position = "none")
-p
+#p <- ggplot(df) + 
+#  aes(PC1, PC2, col=col, label=ids) +
+#  geom_point(size=2) +
+#  geom_text_repel(max.overlaps = 20) +
+#  theme_minimal() +
+#  theme(legend.position = "none")
+#p
 ```
 
 ```{r}
-modes <- nma(pdbs)
+#modes <- nma(pdbs)
 
-plot(modes, pdbs, col=grps.rd)
+#plot(modes, pdbs, col=grps.rd)
 ```
 
