@@ -21,16 +21,16 @@ Class 10 [Structural Bioinformatics Part 1](lecture10/class10.md)
 
 Class 11 [Structural Bioinformatics Part 2, AlphaFold2](lecture11/class11.md)
 
-Class 12 []()
+Class 12 [Genome Informatics and High Throughput Sequencing](lecture 12/class12.md)
 
-Class 13 []()
+Class 13 [Transcriptomics, RNA-Seq analysis, and the Interpretation of Gene Lists](lecture13/class13.md)
 
-Class 14 []()
+Class 14 [RNA-Seq Mini-Project](lecture14/class14.md)
 
-Class 16 []()
+Class 16 [Essential UNIX for Bioinformatics](lecture16/unix_notes.md)
 
-Class 17 []()
+Class 17 [Analyzing Sequencing Data in the Cloud](lecture17/class17.md)
 
-Class 18 []()
+Class 18 [Investigating Pertussis Resurgence Mini-Project](lecture18/class18.md)
 
-Class 19 []()
+Class 19 [Cancer Mutation Analysis Mini-Project](lecture19/class19.md)
