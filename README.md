@@ -21,7 +21,7 @@ Class 10 [Structural Bioinformatics Part 1](lecture10/class10.md)
 
 Class 11 [Structural Bioinformatics Part 2, AlphaFold2](lecture11/class11.md)
 
-Class 12 [Genome Informatics and High Throughput Sequencing](lecture 12/class12.md)
+Class 12 [Genome Informatics and High Throughput Sequencing](lecture12/class12.md)
 
 Class 13 [Transcriptomics, RNA-Seq analysis, and the Interpretation of Gene Lists](lecture13/class13.md)
 
